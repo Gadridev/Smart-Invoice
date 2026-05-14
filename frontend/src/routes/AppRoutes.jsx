@@ -8,6 +8,7 @@ import Suppliers from "@/pages/Suppliers.jsx";
 import SupplierDetail from "@/pages/SupplierDetail.jsx";
 import NotFound from "@/pages/NotFound.jsx";
 import LoginSignup from "@/pages/LoginSignup";
+import LoginSignup from "@/pages/LoginSignup";
 
 export function AppRoutes() {
   return (
