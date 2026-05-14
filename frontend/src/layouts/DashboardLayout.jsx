@@ -1,4 +1,5 @@
 import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext.jsx";
 
 function navClass({ isActive }) {
   return `dash-nav__link${isActive ? " dash-nav__link--active" : ""}`;
@@ -86,8 +87,20 @@ function layoutMeta(pathname) {
 }
 
 
+function userInitials(name) {
+  if (!name?.trim()) return "?";
+  return name
+    .trim()
+    .split(/\s+/)
+    .map((p) => p[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
 export function DashboardLayout() {
   const { pathname } = useLocation();
+  const { user, logout } = useAuth();
   const { crumb, title } = layoutMeta(pathname);
 
   return (
@@ -117,19 +130,25 @@ export function DashboardLayout() {
           </NavLink>
 
           <p className="dash-nav__label">Compte</p>
-          <div className="dash-nav__link dash-nav__link--static">
+          <button
+            type="button"
+            className="dash-nav__link dash-nav__link--button"
+            onClick={logout}
+          >
             <IconLogout />
             Déconnexion
-          </div>
+          </button>
         </div>
 
         <div className="dash-user">
           <div className="dash-user__avatar" aria-hidden>
-            AB
+            {userInitials(user?.name)}
           </div>
           <div className="dash-user__meta">
-            <span className="dash-user__name">Ali Benali</span>
-            <span className="dash-user__role">Administrateur</span>
+            <span className="dash-user__name">{user?.name ?? "—"}</span>
+            <span className="dash-user__role">
+              {user?.role === "admin" ? "Administrateur" : "Client"}
+            </span>
           </div>
         </div>
       </aside>
