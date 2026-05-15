@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import "@/styles/dashboard.css";
+import Loading from "@/components/Loading.jsx";
 import { getDashboard } from "@/api/dashboardApi.js";
 import { formatMAD } from "@/utils/currency.js";
 
@@ -146,12 +148,7 @@ export default function Dashboard() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="dash-loading">
-        <div className="dash-loading__spinner" />
-        <p>Chargement du tableau de bord…</p>
-      </div>
-    );
+    return <Loading message="Chargement du tableau de bord…" />;
   }
 
   if (error) {
