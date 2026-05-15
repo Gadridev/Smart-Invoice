@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { getSuppliers } from "@/api/suppliersApi";
 import SupplierCard from "@/components/suppliers/SupplierCard";
-import SupplierModal from "./SupplierDetail";
 
 const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([]);
-  const [selectedSupplier, setSelectedSupplier] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -54,17 +52,9 @@ const Suppliers = () => {
           <SupplierCard
             key={supplier._id}
             supplier={supplier}
-            onClick={() => setSelectedSupplier(supplier)}
           />
         ))}
       </div>
-
-      {selectedSupplier && (
-        <SupplierModal
-          supplier={selectedSupplier}
-          onClose={() => setSelectedSupplier(null)}
-        />
-      )}
     </div>
   );
 };

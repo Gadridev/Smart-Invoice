@@ -1,4 +1,8 @@
-const SupplierCard = ({ supplier, onClick }) => {
+import { useNavigate } from "react-router-dom";
+
+const SupplierCard = ({ supplier }) => {
+  const navigate = useNavigate();
+
   const initials = supplier.name
     ?.split(" ")
     .map((word) => word[0])
@@ -7,7 +11,7 @@ const SupplierCard = ({ supplier, onClick }) => {
 
   return (
     <div
-      onClick={onClick}
+      onClick={() => navigate(`/suppliers/${supplier._id}`)}
       className="bg-[#151D33] border border-[#222B45] rounded-2xl p-6 cursor-pointer hover:border-cyan-500 transition duration-300"
     >
       <div className="w-14 h-14 rounded-xl bg-[#1F2B4A] flex items-center justify-center text-cyan-400 font-bold text-xl mb-6">
