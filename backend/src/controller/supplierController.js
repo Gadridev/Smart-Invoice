@@ -44,7 +44,10 @@ export const getSupplier = async (req, res, next) => {
 
     res.status(200).json({
       status: "success",
-      data: { supplier: supplier.supplier },
+      data: {
+        supplier: supplier.supplier,
+        invoiceCount: supplier.invoiceCount,
+      },
     });
   } catch (err) {
     next(err);

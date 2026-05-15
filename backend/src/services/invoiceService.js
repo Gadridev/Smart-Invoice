@@ -2,6 +2,7 @@ import Invoice from "../model/Invoice.js";
 import Supplier from "../model/Supplier.js";
 import Payment from "../model/Payment.js";
 import AppError from "../utils/AppError.js";
+import { assertValidObjectId } from "../utils/objectId.js";
 
 const computeStatus = (amount, totalPaid) => {
   if (totalPaid === 0) return "unpaid";
@@ -45,7 +46,10 @@ export async function listInvoicesService(
   const skip = (page - 1) * limit;
 
   const filter = { userId };
-  if (supplierId) filter.supplierId = supplierId;
+  if (supplierId) {
+    assertValidObjectId(supplierId, "supplier id");
+    filter.supplierId = supplierId;
+  }
 
   const invoices = await Invoice.find(filter)
     .populate("supplierId", "name")

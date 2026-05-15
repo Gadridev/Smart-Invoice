@@ -1,0 +1,356 @@
+.sup-dtl {
+  max-width: 1200px;
+}
+
+.sup-dtl-profile {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.sup-dtl-profile__main {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.sup-dtl-avatar {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.35rem;
+  font-weight: 700;
+  background: rgba(45, 212, 191, 0.15);
+  color: var(--teal);
+  border: 1px solid rgba(45, 212, 191, 0.25);
+}
+
+.sup-dtl-profile__body {
+  min-width: 0;
+}
+
+.sup-dtl-name {
+  margin: 0 0 0.35rem;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+}
+
+.sup-dtl-ids {
+  margin: 0 0 0.85rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.sup-dtl-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.sup-dtl-tag {
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: rgba(8, 10, 15, 0.5);
+  color: var(--muted);
+}
+
+.sup-dtl-tag--active {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-color: rgba(45, 212, 191, 0.35);
+  background: rgba(45, 212, 191, 0.1);
+  color: var(--teal);
+}
+
+.sup-dtl-tag__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+.sup-dtl-profile__stats {
+  display: flex;
+  gap: 2rem;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.sup-dtl-stat-block__label {
+  margin: 0 0 0.25rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sup-dtl-stat-block__value {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sup-dtl-stat-block__value--gold {
+  color: var(--gold);
+  font-size: 1.5rem;
+}
+
+.sup-dtl-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .sup-dtl-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sup-dtl-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sup-dtl-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+}
+
+.sup-dtl-card__title {
+  margin: 0 0 1rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sup-dtl-kv {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sup-dtl-kv__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(42, 47, 58, 0.85);
+}
+
+.sup-dtl-kv__row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sup-dtl-kv__row:first-child {
+  padding-top: 0;
+}
+
+.sup-dtl-kv dt {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.sup-dtl-kv dd {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text);
+  text-align: right;
+}
+
+.sup-dtl-metric {
+  margin-bottom: 1.1rem;
+}
+
+.sup-dtl-metric:last-child {
+  margin-bottom: 0;
+}
+
+.sup-dtl-metric__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.sup-dtl-metric__label {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.sup-dtl-metric__pct {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sup-dtl-metric__pct--teal {
+  color: var(--teal);
+}
+
+.sup-dtl-metric__pct--danger {
+  color: var(--danger);
+}
+
+.sup-dtl-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(8, 10, 15, 0.85);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.sup-dtl-bar__fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.sup-dtl-bar__fill--green {
+  background: var(--success);
+}
+
+.sup-dtl-bar__fill--gold {
+  background: var(--gold);
+}
+
+.sup-dtl-invoices-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sup-dtl-invoices-head .sup-dtl-card__title {
+  margin-bottom: 0;
+}
+
+.sup-dtl-link {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.sup-dtl-link:hover {
+  text-decoration: underline;
+}
+
+.sup-dtl-invoice-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.sup-dtl-invoice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  background: rgba(8, 10, 15, 0.45);
+  border: 1px solid rgba(42, 47, 58, 0.6);
+}
+
+.sup-dtl-invoice__left {
+  min-width: 0;
+}
+
+.sup-dtl-invoice__top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.25rem;
+}
+
+.sup-dtl-invoice__num {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sup-dtl-invoice__meta {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.sup-dtl-invoice__amount {
+  font-size: 0.95rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sup-dtl-invoice__amount--gold {
+  color: var(--gold);
+}
+
+.sup-dtl-invoice__amount--green {
+  color: var(--success);
+}
+
+.sup-dtl-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.sup-dtl-badge--partial {
+  background: var(--gold-dim);
+  color: var(--gold);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.sup-dtl-badge--paid {
+  background: rgba(74, 222, 128, 0.12);
+  color: var(--success);
+  border: 1px solid rgba(74, 222, 128, 0.22);
+}

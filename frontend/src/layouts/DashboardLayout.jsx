@@ -71,14 +71,13 @@ function layoutMeta(pathname) {
     return { crumb: "Accueil / Factures", title: "Factures" };
   }
   if (pathname.startsWith("/suppliers/") && pathname !== "/suppliers") {
-    const id = pathname.split("/")[2];
     return {
-      crumb: `Accueil / Fournisseurs / ${id}`,
+      crumb: "Fournisseurs / Détail",
       title: "Détail fournisseur",
     };
   }
   if (pathname === "/suppliers") {
-    return { crumb: "Accueil / Fournisseurs", title: "Fournisseurs" };
+    return { crumb: "Gestion / Fournisseurs", title: "Fournisseurs" };
   }
   if (pathname === "/dashboard" || pathname === "/") {
     return { crumb: "Accueil / Tableau de bord", title: "Tableau de bord" };

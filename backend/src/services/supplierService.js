@@ -1,6 +1,7 @@
 import Supplier from "../model/Supplier.js";
 import Invoice from "../model/Invoice.js";
 import AppError from "../utils/AppError.js";
+import { assertValidObjectId } from "../utils/objectId.js";
 
 export async function createSupplierService(userId, payload) {
   
@@ -17,26 +18,6 @@ export async function getSuppliersService(userId, query = {}) {
     filter.name = { $regex: String(query.name), $options: "i" };
   }
   
-  const joinInvoice=await Supplier.aggregate([
-    
-      {
-        $match:{userId:userId}
-      },
-      {
-        $lookup:{
-        from:"invoices",
-        localField:"_id",
-        foreignField:"supplierId",
-        as:"invoices"
-      }
-    },
-      {
-        $unwind:{
-          path:"$invoices"
-        }
-      }
-  ])
-console.log(joinInvoice)
   const suppliers = await Supplier.find(filter)
     .sort({ createdAt: -1 })
     .skip(skip)
@@ -45,6 +26,7 @@ console.log(joinInvoice)
 }
 
 export async function getSupplierByIdService(supplierId, userId) {
+  assertValidObjectId(supplierId, "supplier id");
   const supplier = await Supplier.findById(supplierId);
   if (!supplier) throw new AppError("Supplier not found", 404);
   if (String(supplier.userId) !== String(userId)) {
@@ -62,6 +44,7 @@ export async function getSupplierByIdService(supplierId, userId) {
 }
 
 export async function updateSupplierService(supplierId, userId, payload) {
+  assertValidObjectId(supplierId, "supplier id");
   const supplier = await Supplier.findById(supplierId);
   if (!supplier) throw new AppError("Supplier not found", 404);
   if (String(supplier.userId) !== String(userId)) {
@@ -81,6 +64,7 @@ export async function updateSupplierService(supplierId, userId, payload) {
 }
 
 export async function deleteSupplierService(supplierId, userId) {
+  assertValidObjectId(supplierId, "supplier id");
   const supplier = await Supplier.findById(supplierId);
   const supplierInvoices = await Invoice.find({ supplierId, userId });
   if (supplierInvoices.length > 0) {
