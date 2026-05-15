@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "@/styles/suppliers.css";
 import { getSuppliers } from "@/api/suppliersApi";
 import { getSupplierStats } from "@/api/dashboardApi";
-import { mapSupplierForCard } from "@/utils/supplierMappers.js";
+import { formatMAD } from "@/utils/currency.js";
 import SupplierCard from "@/components/suppliers/SupplierCard";
 import SupplierCardNew from "@/components/suppliers/SupplierCardNew";
 
@@ -18,31 +18,46 @@ export default function Suppliers() {
   async function loadSuppliers() {
     setLoading(true);
     setError(null);
+
     try {
       const res = await getSuppliers();
-      const list = res.data?.suppliers ?? [];
+      const list = res.data.suppliers || [];
+      const cards = [];
 
-      const withStats = await Promise.all(
-        list.map(async (supplier) => {
-          try {
-            const stats = await getSupplierStats(supplier._id);
-            return mapSupplierForCard(supplier, stats);
-          } catch {
-            return mapSupplierForCard(supplier, null);
-          }
-        }),
-      );
+      for (const supplier of list) {
+        let stats = null;
+        try {
+          stats = await getSupplierStats(supplier._id);
+        } catch {
+          // pas de stats pour ce fournisseur
+        }
 
-      setSuppliers(withStats);
+        const unpaid = stats?.invoicesByStatus?.unpaid || 0;
+
+        cards.push({
+          ...supplier,
+          invoiceCount: stats ? stats.totalInvoices : 0,
+          totalSpent: formatMAD(stats ? stats.totalAmount : 0),
+          status: unpaid > 0 ? "litige" : "active",
+        });
+      }
+
+      setSuppliers(cards);
     } catch (err) {
-      setError(err.response?.data?.message ?? "Impossible de charger les fournisseurs");
+      const message = err.response?.data?.message || "Impossible de charger les fournisseurs";
+      setError(message);
     } finally {
       setLoading(false);
     }
   }
 
-  if (loading) return <p className="sup-loading">Chargement…</p>;
-  if (error) return <p className="sup-loading">{error}</p>;
+  if (loading) {
+    return <p className="sup-loading">Chargement…</p>;
+  }
+
+  if (error) {
+    return <p className="sup-loading">{error}</p>;
+  }
 
   return (
     <div className="sup-page">
