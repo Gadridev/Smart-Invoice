@@ -1,7 +1,7 @@
 import Supplier from "../model/Supplier.js";
 import Invoice from "../model/Invoice.js";
 import AppError from "../utils/AppError.js";
-
+import { assertValidObjectId } from "../utils/objectId.js";
 const computeStatus = (amount, totalPaid) => {
   if (totalPaid === 0) return "unpaid";
   if (totalPaid < amount) return "partially_paid";
@@ -9,7 +9,11 @@ const computeStatus = (amount, totalPaid) => {
 };
 
 export const getSupplierStatsService = async (supplierId, userId) => {
-  const supplier = await Supplier.findOne({ _id: supplierId, userId });
+  assertValidObjectId(supplierId, "supplier id");
+  const supplier = await Supplier.findOne({
+    _id: supplierId,
+    userId,
+  });
   if (!supplier) {
     throw new AppError("Supplier not found", 404);
   }

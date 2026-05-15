@@ -8,9 +8,6 @@ export default function App() {
       <AuthProvider>
         <AppRoutes />
       </AuthProvider>
-      <Route path="/suppliers" element={<Suppliers />} />
-
-      <Route path="/suppliers/:id" element={<SupplierDetail />} />
     </BrowserRouter>
   );
 }

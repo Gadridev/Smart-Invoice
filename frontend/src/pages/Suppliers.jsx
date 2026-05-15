@@ -1,62 +1,61 @@
 import { useEffect, useState } from "react";
+import "@/styles/suppliers.css";
 import { getSuppliers } from "@/api/suppliersApi";
+import { getSupplierStats } from "@/api/dashboardApi";
+import { mapSupplierForCard } from "@/utils/supplierMappers.js";
 import SupplierCard from "@/components/suppliers/SupplierCard";
+import SupplierCardNew from "@/components/suppliers/SupplierCardNew";
 
-const Suppliers = () => {
+export default function Suppliers() {
   const [suppliers, setSuppliers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchSuppliers();
+    loadSuppliers();
   }, []);
 
-  const fetchSuppliers = async () => {
+  async function loadSuppliers() {
+    setLoading(true);
+    setError(null);
     try {
       const res = await getSuppliers();
-      setSuppliers(res.data.suppliers);
+      const list = res.data?.suppliers ?? [];
+
+      const withStats = await Promise.all(
+        list.map(async (supplier) => {
+          try {
+            const stats = await getSupplierStats(supplier._id);
+            return mapSupplierForCard(supplier, stats);
+          } catch {
+            return mapSupplierForCard(supplier, null);
+          }
+        }),
+      );
+
+      setSuppliers(withStats);
     } catch (err) {
-      console.log(err);
+      setError(err.response?.data?.message ?? "Impossible de charger les fournisseurs");
     } finally {
       setLoading(false);
     }
-  };
-
-  if (loading) {
-    return (
-      <div className="text-white p-10">
-        Loading...
-      </div>
-    );
   }
 
+  if (loading) return <p className="sup-loading">Chargement…</p>;
+  if (error) return <p className="sup-loading">{error}</p>;
+
   return (
-    <div className="min-h-screen bg-[#070B1A] text-white p-8">
-      <div className="flex items-center justify-between mb-10">
-        <div>
-          <p className="uppercase tracking-[4px] text-xs text-gray-500">
-            Gestion / Fournisseurs
-          </p>
-
-          <h1 className="text-3xl font-semibold mt-2">
-            Fournisseurs
-          </h1>
-        </div>
-
-        <button className="bg-[#1B2237] hover:bg-[#232C46] transition px-5 py-3 rounded-xl border border-[#2A3453]">
-          + Nouveau fournisseur
-        </button>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {suppliers.map((supplier) => (
+    <div className="sup-page">
+      <div className="sup-grid">
+        {suppliers.map((supplier, index) => (
           <SupplierCard
             key={supplier._id}
             supplier={supplier}
+            colorIndex={index}
           />
         ))}
+        <SupplierCardNew />
       </div>
     </div>
   );
-};
-
-export default Suppliers;
+}

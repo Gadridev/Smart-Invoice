@@ -1,48 +1,77 @@
 import { useNavigate } from "react-router-dom";
 
-const SupplierCard = ({ supplier }) => {
-  const navigate = useNavigate();
+const AVATAR_VARIANTS = ["teal", "gold", "rose", "violet", "green"];
 
-  const initials = supplier.name
-    ?.split(" ")
+function getInitials(name) {
+  if (!name?.trim()) return "?";
+  return name
+    .trim()
+    .split(/\s+/)
     .map((word) => word[0])
     .join("")
-    .slice(0, 2);
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+function formatCategory(supplier) {
+  const raw = supplier.category || supplier.contact || "Fournisseur";
+  return String(raw).toUpperCase();
+}
+
+function formatTotal(supplier) {
+  if (supplier.totalSpent != null && supplier.totalSpent !== "") {
+    return supplier.totalSpent;
+  }
+  return "0 MAD";
+}
+
+export default function SupplierCard({ supplier, colorIndex = 0 }) {
+  const navigate = useNavigate();
+  const variant = AVATAR_VARIANTS[colorIndex % AVATAR_VARIANTS.length];
+  const isDispute = supplier.status === "litige" || supplier.status === "dispute";
 
   return (
-    <div
+    <button
+      type="button"
+      className="sup-card"
       onClick={() => navigate(`/suppliers/${supplier._id}`)}
-      className="bg-[#151D33] border border-[#222B45] rounded-2xl p-6 cursor-pointer hover:border-cyan-500 transition duration-300"
     >
-      <div className="w-14 h-14 rounded-xl bg-[#1F2B4A] flex items-center justify-center text-cyan-400 font-bold text-xl mb-6">
-        {initials}
+      <div className="sup-card__head">
+        <div className={`sup-card__avatar sup-card__avatar--${variant}`}>
+          {getInitials(supplier.name)}
+        </div>
+        <div className="sup-card__meta">
+          <h2 className="sup-card__name">{supplier.name}</h2>
+          <p className="sup-card__category">{formatCategory(supplier)}</p>
+        </div>
       </div>
-
-      <h2 className="text-xl font-semibold mb-2">
-        {supplier.name}
-      </h2>
-
-      <p className="text-gray-400 text-sm mb-6">
-        {supplier.email || "Aucun email"}
-      </p>
-
-      <div className="flex items-center justify-between">
+      <div className="sup-card__stats">
         <div>
-          <p className="text-xs text-gray-500 uppercase">
-            Téléphone
-          </p>
-
-          <p className="text-sm mt-1">
-            {supplier.phone || "Non défini"}
+          <p className="sup-card__stat-label">Factures</p>
+          <p className="sup-card__stat-value">
+            {supplier.invoiceCount ?? supplier.invoicesCount ?? 0}
           </p>
         </div>
-
-        <span className="bg-cyan-500/20 text-cyan-400 text-xs px-3 py-1 rounded-full">
-          Actif
-        </span>
+        <div>
+          <p className="sup-card__stat-label">Total dépensé</p>
+          <p className="sup-card__stat-value sup-card__stat-value--gold">
+            {formatTotal(supplier)}
+          </p>
+        </div>
+        <div>
+          <p className="sup-card__stat-label">Statut</p>
+          <span
+            className={
+              isDispute
+                ? "sup-card__badge sup-card__badge--dispute"
+                : "sup-card__badge sup-card__badge--active"
+            }
+          >
+            <span className="sup-card__badge-dot" aria-hidden />
+            {isDispute ? "Litige" : "Actif"}
+          </span>
+        </div>
       </div>
-    </div>
+    </button>
   );
-};
-
-export default SupplierCard;
+}

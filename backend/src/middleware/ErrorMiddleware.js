@@ -14,6 +14,12 @@ function sendErrorProd(err, req, res) {
 }
 
 function ErrorMiddleware(err, req, res, next) {
+  if (err.name === "CastError") {
+    err.statusCode = 400;
+    err.status = "fail";
+    err.message = "Invalid id format";
+  }
+
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
 

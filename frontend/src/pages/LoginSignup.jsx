@@ -96,7 +96,7 @@ export default function LoginSignup() {
   }
 
   return (
-    <div className="container">
+    <div className="login-page container">
       <div className="box">
         <div className="text">
           <h1>

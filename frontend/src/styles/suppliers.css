@@ -1,0 +1,235 @@
+.sup-page {
+  max-width: 1280px;
+}
+
+.sup-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+@media (max-width: 1100px) {
+  .sup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .sup-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sup-loading {
+  padding: 2rem 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.sup-grid > .sup-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+}
+
+.sup-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.35rem 1.5rem;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  width: 100%;
+  height: auto;
+  min-height: 180px;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.sup-card:hover {
+  border-color: rgba(212, 175, 55, 0.35);
+  background: rgba(26, 29, 38, 0.95);
+  transform: none;
+  opacity: 1;
+}
+
+.sup-card__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-bottom: 1.1rem;
+}
+
+.sup-card__avatar {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.sup-card__avatar--teal {
+  background: rgba(45, 212, 191, 0.15);
+  color: var(--teal);
+}
+
+.sup-card__avatar--gold {
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+
+.sup-card__avatar--rose {
+  background: rgba(248, 113, 113, 0.15);
+  color: #fca5a5;
+}
+
+.sup-card__avatar--violet {
+  background: rgba(167, 139, 250, 0.15);
+  color: #c4b5fd;
+}
+
+.sup-card__avatar--green {
+  background: rgba(74, 222, 128, 0.12);
+  color: var(--success);
+}
+
+.sup-card__meta {
+  min-width: 0;
+}
+
+.sup-card__name {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.sup-card__category {
+  margin: 0;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.sup-card__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding-top: 0.15rem;
+}
+
+.sup-card__stat-label {
+  margin: 0 0 0.35rem;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sup-card__stat-value {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sup-card__stat-value--gold {
+  color: var(--gold);
+}
+
+.sup-card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sup-card__badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sup-card__badge--active {
+  background: rgba(45, 212, 191, 0.12);
+  color: var(--teal);
+  border: 1px solid rgba(45, 212, 191, 0.25);
+}
+
+.sup-card__badge--active .sup-card__badge-dot {
+  background: var(--teal);
+}
+
+.sup-card__badge--dispute {
+  background: rgba(248, 113, 113, 0.12);
+  color: #fca5a5;
+  border: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+.sup-card__badge--dispute .sup-card__badge-dot {
+  background: var(--danger);
+}
+
+.sup-card--new {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  cursor: pointer;
+  border-style: dashed;
+  border-color: rgba(51, 65, 85, 0.9);
+  background: rgba(26, 29, 38, 0.4);
+}
+
+.sup-card--new:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  background: rgba(26, 29, 38, 0.65);
+}
+
+.sup-card__plus {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--muted);
+  margin-bottom: 0.65rem;
+}
+
+.sup-card--new:hover .sup-card__plus {
+  color: var(--gold);
+}
+
+.sup-card__new-label {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.sup-card--new:hover .sup-card__new-label {
+  color: var(--text);
+}
