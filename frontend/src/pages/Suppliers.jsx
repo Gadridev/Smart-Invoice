@@ -5,6 +5,7 @@ import { getSupplierStats } from "@/api/dashboardApi";
 import { formatMAD } from "@/utils/currency.js";
 import SupplierCard from "@/components/suppliers/SupplierCard";
 import SupplierCardNew from "@/components/suppliers/SupplierCardNew";
+import Loading from "@/components/Loading";
 
 export default function Suppliers() {
   const [suppliers, setSuppliers] = useState([]);
@@ -52,7 +53,7 @@ export default function Suppliers() {
   }
 
   if (loading) {
-    return <p className="sup-loading">Chargement…</p>;
+    return <Loading message="Chargement des fournisseurs…" />;
   }
 
   if (error) {

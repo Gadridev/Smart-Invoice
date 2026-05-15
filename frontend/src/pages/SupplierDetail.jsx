@@ -10,6 +10,7 @@ import { SupplierDetailContact } from "@/components/suppliers/SupplierDetailCont
 import { SupplierDetailPaymentStats } from "@/components/suppliers/SupplierDetailPaymentStats.jsx";
 import { SupplierDetailProfile } from "@/components/suppliers/SupplierDetailProfile.jsx";
 import { SupplierDetailRecentInvoices } from "@/components/suppliers/SupplierDetailRecentInvoices.jsx";
+import Loading from "@/components/Loading";
 
 function isValidId(id) {
   return /^[a-f\d]{24}$/i.test(id);
@@ -176,7 +177,7 @@ export default function SupplierDetail() {
   }
 
   if (loading) {
-    return <p className="sup-loading">Chargement…</p>;
+    return <Loading message="Chargement du détail du fournisseur…" />;
   }
 
   if (error) {
