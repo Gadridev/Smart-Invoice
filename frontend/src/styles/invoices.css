@@ -1,0 +1,334 @@
+.inv-page {
+  max-width: 1280px;
+}
+
+.inv-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+}
+
+.inv-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding: 1.15rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(8, 10, 15, 0.35);
+}
+
+.inv-search {
+  flex: 1;
+  min-width: 220px;
+  max-width: 400px;
+}
+
+.inv-search--icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inv-search__icon {
+  position: absolute;
+  left: 0.85rem;
+  display: flex;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.inv-search__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.inv-search--icon input {
+  width: 100%;
+  padding: 0.65rem 1rem 0.65rem 2.65rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-root);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.inv-search--icon input::placeholder {
+  color: var(--muted);
+}
+
+.inv-tabs {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.inv-tab {
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.inv-tab:hover {
+  color: var(--text);
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.inv-tab--active {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+.inv-table-wrap {
+  overflow-x: auto;
+}
+
+.inv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.inv-table th {
+  text-align: left;
+  padding: 0.9rem 1.5rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(8, 10, 15, 0.55);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.inv-table td {
+  padding: 0.95rem 1.5rem;
+  border-bottom: 1px solid rgba(42, 47, 58, 0.9);
+  vertical-align: middle;
+}
+
+.inv-table tbody tr:nth-child(even) td {
+  background: rgba(8, 10, 15, 0.25);
+}
+
+.inv-table tbody tr:nth-child(odd) td {
+  background: rgba(26, 29, 38, 0.35);
+}
+
+.inv-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.inv-table tbody tr:hover td {
+  background: rgba(212, 175, 55, 0.06) !important;
+}
+
+.inv-num {
+  font-family: ui-monospace, "Cascadia Code", "SF Mono", Menlo, monospace;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.inv-supplier {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.inv-amount {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.inv-paid {
+  font-weight: 600;
+}
+
+.inv-paid--zero {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.inv-paid--partial {
+  color: var(--gold);
+}
+
+.inv-paid--full {
+  color: var(--success);
+}
+
+.inv-due {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.inv-due--late {
+  color: var(--danger);
+}
+
+.inv-due__icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  opacity: 0.95;
+}
+
+.inv-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(8, 10, 15, 0.65);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.inv-action-btn:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  color: var(--gold);
+}
+
+a.inv-action-btn {
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.inv-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.7rem 0.32rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.inv-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.inv-badge--late {
+  background: rgba(248, 113, 113, 0.12);
+  color: #fca5a5;
+  border-color: rgba(248, 113, 113, 0.25);
+}
+
+.inv-badge--late .inv-badge__dot {
+  background: var(--danger);
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.25);
+}
+
+.inv-badge--partial {
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--gold);
+  border-color: rgba(212, 175, 55, 0.25);
+}
+
+.inv-badge--partial .inv-badge__dot {
+  background: var(--gold);
+  box-shadow: 0 0 0 2px var(--gold-dim);
+}
+
+.inv-badge--paid {
+  background: rgba(74, 222, 128, 0.1);
+  color: #86efac;
+  border-color: rgba(74, 222, 128, 0.22);
+}
+
+.inv-badge--paid .inv-badge__dot {
+  background: var(--success);
+  box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.2);
+}
+
+.inv-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border);
+  background: rgba(8, 10, 15, 0.45);
+}
+
+.inv-footer__meta {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.inv-pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.inv-page-btn {
+  padding: 0.42rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-root);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.inv-page-btn:hover:not(:disabled) {
+  color: var(--text);
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.inv-page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.inv-page-num {
+  min-width: 2.1rem;
+  height: 2.1rem;
+  padding: 0 0.35rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-root);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.inv-page-num:hover {
+  color: var(--text);
+}
+
+.inv-page-num--active {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
