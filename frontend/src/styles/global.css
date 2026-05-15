@@ -1,8 +1,8 @@
 :root {
-  --bg-root: #0f172a;
-  --bg-card: #1e293b;
-  --bg-sidebar: #0b1220;
-  --border: #334155;
+  --bg-root: #0b0e14;
+  --bg-card: #1a1d26;
+  --bg-sidebar: #080a0f;
+  --border: #2a2f3a;
   --text: #f1f5f9;
   --muted: #94a3b8;
   --gold: #d4af37;
@@ -217,7 +217,34 @@ a {
   gap: 1rem;
   padding: 1.5rem 2rem 1rem;
   flex-wrap: wrap;
-  border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+  border-bottom: 1px solid rgba(42, 47, 58, 0.85);
+}
+
+.dash-topbar__side {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.dash-topbar__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dash-topbar__cta:hover {
+  border-color: rgba(212, 175, 55, 0.45);
+  color: var(--gold);
 }
 
 .dash-topbar__crumb {
@@ -237,7 +264,6 @@ a {
 }
 
 .dash-topbar__date {
-  align-self: flex-start;
   padding: 0.5rem 1rem;
   border-radius: 10px;
   background: var(--bg-card);
@@ -245,6 +271,7 @@ a {
   font-size: 0.85rem;
   color: var(--muted);
   text-transform: capitalize;
+  white-space: nowrap;
 }
 
 .dash-content {

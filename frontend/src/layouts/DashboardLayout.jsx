@@ -61,14 +61,13 @@ function todayFr() {
 
 function layoutMeta(pathname) {
   if (pathname.startsWith("/invoices/") && pathname !== "/invoices") {
-    const id = pathname.split("/")[2];
     return {
-      crumb: `Accueil / Factures / ${id}`,
-      title: "Détail facture",
+      crumb: "Factures / Détail",
+      title: "Détail facture #INV-2025-046",
     };
   }
   if (pathname === "/invoices") {
-    return { crumb: "Accueil / Factures", title: "Factures" };
+    return { crumb: "Gestion / Factures", title: "Factures" };
   }
   if (pathname.startsWith("/suppliers/") && pathname !== "/suppliers") {
     const id = pathname.split("/")[2];
@@ -159,7 +158,14 @@ export function DashboardLayout() {
             <p className="dash-topbar__crumb">{crumb}</p>
             <h1 className="dash-topbar__title">{title}</h1>
           </div>
-          <div className="dash-topbar__date">{todayFr()}</div>
+          <div className="dash-topbar__side">
+            {pathname === "/invoices" && (
+              <button type="button" className="dash-topbar__cta">
+                + Nouvelle facture
+              </button>
+            )}
+            <div className="dash-topbar__date">{todayFr()}</div>
+          </div>
         </header>
         <div className="dash-content">
           <Outlet />
