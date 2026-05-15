@@ -37,6 +37,8 @@ a {
   color: var(--muted);
 }
 
+/* App shell: sidebar, topbar, shared tokens (DashboardLayout) */
+
 .dash-root {
   display: flex;
   min-height: 100vh;
@@ -271,13 +273,4 @@ a {
 .page-shell__hint {
   margin: 0;
   font-size: 0.95rem;
-}
-
-.auth-loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  color: var(--muted);
-  font-size: 1rem;
 }
