@@ -26,7 +26,7 @@ export async function createPaymentService(userId, invoiceId, payload) {
   if (!mode_paiement || !allowedModes.includes(mode_paiement)) {
     throw new AppError("Invalid payment mode", 422);
   }
-
+console.log(invoice.totalPaid,invoice.amount)
   if (invoice.totalPaid >= invoice.amount) {
     throw new AppError("Invoice already fully paid", 422);
   }

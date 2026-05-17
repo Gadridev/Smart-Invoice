@@ -161,7 +161,7 @@ export default function LoginSignup() {
             </div>
           )}
 
-          <button type="submit" disabled={initializing}>
+          <button className="btn" type="submit" disabled={initializing}>
             {isSignup ? "Créer un compte" : "Se connecter"}
           </button>
 

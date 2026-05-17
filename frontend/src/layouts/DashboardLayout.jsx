@@ -158,11 +158,7 @@ export function DashboardLayout() {
             <h1 className="dash-topbar__title">{title}</h1>
           </div>
           <div className="dash-topbar__side">
-            {pathname === "/invoices" && (
-              <button type="button" className="dash-topbar__cta">
-                + Nouvelle facture
-              </button>
-            )}
+          
             <div className="dash-topbar__date">{todayFr()}</div>
           </div>
         </header>

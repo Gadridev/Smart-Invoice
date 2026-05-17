@@ -35,13 +35,8 @@ export async function createInvoiceService(userId, payload) {
   });
 }
 
-export async function listInvoicesService(
-  userId,
-  { status, supplierId, page = 1, limit = 15 } = {},
-) {
-  console.log(page, limit);
-
-  page = Math.max(1, Number(page));
+export async function listInvoicesService(userId, { status, supplierId, page = 1, limit } = {}) {
+  page  = Math.max(1, Number(page));
   limit = Math.min(100, Math.max(1, Number(limit)));
   const skip = (page - 1) * limit;
 
@@ -51,47 +46,48 @@ export async function listInvoicesService(
     filter.supplierId = supplierId;
   }
 
+  const total = await Invoice.countDocuments(filter);
+
   const invoices = await Invoice.find(filter)
     .populate("supplierId", "name")
     .sort({ createdAt: -1 })
     .skip(skip)
     .limit(limit);
 
-  const result = invoices.map((invoice) =>  {
+  const result = invoices.map((invoice) => {
     const totalPaid = invoice.totalPaid || 0;
     const amount = invoice.amount || 0;
-    const statusComputed = computeStatus(amount, totalPaid);
     return {
       ...invoice.toObject(),
       supplierName: invoice.supplierId?.name,
-      status: statusComputed,
+      status: computeStatus(amount, totalPaid),
       totalPaid,
       remainingAmount: Math.max(0, amount - totalPaid),
     };
   });
-  if (status) {
-    const allowed = ["unpaid", "partially_paid", "paid"];
-    if (!allowed.includes(status)) {
-      throw new AppError("Invalid status filter", 422);
-    }
-    return result.filter((i) => i.status === status);
-  }
-  return result;
+
+  const filtered = status ? result.filter((i) => i.status === status) : result;
+
+  return {
+    data: filtered,
+    total,                                    
+    totalPages: Math.ceil(total / limit),    
+    currentPage: page,
+    limit,
+  };
 }
 
 export async function getInvoiceByIdService(userId, invoiceId) {
-  const invoice = await Invoice.findOne({ _id: invoiceId, userId }).populate(
-    "supplierId",
-    "name",
-  );
+  const invoice = await Invoice.findOne({ _id: invoiceId, userId }).populate("supplierId");
 
-  if (!invoice) {
-    throw new AppError("Invoice not found", 404);
-  }
-  console.log(invoice);
+  if (!invoice) throw new AppError("Invoice not found", 404);
 
-  const totalPaid = invoice.totalPaid || 0;
+  const payments = await Payment.find({ invoiceId: invoice._id });
+  const totalPaid = payments.reduce((sum, p) => sum + p.amount, 0);
+
   const amount = invoice.amount || 0;
+
+  await Invoice.findByIdAndUpdate(invoiceId, { totalPaid });
 
   return {
     ...invoice.toObject(),

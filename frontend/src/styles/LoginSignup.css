@@ -74,12 +74,7 @@
   color: #8b93a7;
 }
 
-.login-page .input input:focus {
-  border: 1px solid #d4a64f;
-  box-shadow: 0 0 5px rgba(212, 166, 79, 0.4);
-}
-
-.login-page .inputs button {
+.btn{
   width: 100%;
   height: 42px;
   border: none;
