@@ -11,7 +11,6 @@ function DueIcon() {
     </svg>
   );
 }
-
 export function InvoiceRow({ row }) {
   const paidClass =
     row.paidTone === "zero"

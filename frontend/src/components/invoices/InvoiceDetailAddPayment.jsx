@@ -1,3 +1,6 @@
+import { createInvoicePayment } from "@/api/invoicesApi";
+import { useState } from "react";
+
 function CalendarIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden>
@@ -8,8 +11,42 @@ function CalendarIcon() {
     </svg>
   );
 }
+const EMPTY = { amount: "", paymentDate: "", mode_paiement: "virement", note: "" };
+export function InvoiceDetailAddPayment({ balanceLabel, invoiceId, onPaymentAdded }) {
+  const [form, setForm] = useState(EMPTY);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  function set(field) {
+    return (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
+  }
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if ((!form.amount) || Number(form.amount) <= 0) return setError("Veuillez choisir un amount.");
+    if (!form.paymentDate) return setError("Veuillez choisir un paymentDate.");
+    if (!form.note) return setError("Veuillez choisir un amount.");
 
-export function InvoiceDetailAddPayment({ balanceLabel }) {
+    setError("");
+    setLoading(true);
+    try {
+      console.log(form)
+      const [day, month, year] = form.paymentDate.split("/");
+      const isoDate = `${year}-${month}-${day}`
+      console.log(isoDate)
+       await createInvoicePayment(invoiceId, {
+        amount: Number(form.amount),
+        paymentDate: isoDate,
+        mode_paiement: form.mode_paiement,
+        note: form.note
+      })
+      onPaymentAdded()
+      setForm(EMPTY)
+    } catch (err) {
+      setError(err.response?.data?.message ?? "Une erreur est survenue.");
+    } finally {
+      setLoading(false);
+    }
+  }
+  if (error) return `${error}`
   return (
     <section className="inv-dtl-card">
       <div className="inv-dtl-form-card__head">
@@ -17,7 +54,7 @@ export function InvoiceDetailAddPayment({ balanceLabel }) {
         <span className="inv-dtl-solde">{balanceLabel}</span>
       </div>
 
-      <form className="inv-dtl-form">
+      <form className="inv-dtl-form" onSubmit={handleSubmit} >
         <div className="inv-dtl-field">
           <label htmlFor="inv-pay-amount">Montant (MAD)</label>
           <input
@@ -25,15 +62,16 @@ export function InvoiceDetailAddPayment({ balanceLabel }) {
             type="text"
             placeholder="Ex: 10000"
             autoComplete="off"
+            onChange={set("amount")}
           />
         </div>
 
         <div className="inv-dtl-field">
           <label htmlFor="inv-pay-method">Méthode de paiement</label>
-          <select id="inv-pay-method" defaultValue="virement">
+          <select id="inv-pay-method" value={form.mode_paiement} onChange={set("mode_paiement")}>
             <option value="virement">Virement bancaire</option>
-            <option value="cheque">Chèque</option>
-            <option value="especes">Espèces</option>
+            <option value="chèque">Chèque</option>
+            <option value="espèces">Espèces</option>
           </select>
         </div>
 
@@ -44,6 +82,7 @@ export function InvoiceDetailAddPayment({ balanceLabel }) {
               id="inv-pay-date"
               type="text"
               defaultValue="28/04/2025"
+              onChange={set("paymentDate")}
             />
             <span className="inv-dtl-field__calendar">
               <CalendarIcon />
@@ -58,6 +97,7 @@ export function InvoiceDetailAddPayment({ balanceLabel }) {
             type="text"
             placeholder="Numéro de référence"
             autoComplete="off"
+
           />
         </div>
 
@@ -66,10 +106,11 @@ export function InvoiceDetailAddPayment({ balanceLabel }) {
           <textarea
             id="inv-pay-note"
             placeholder="Informations complémentaires…"
+            onChange={set("note")}
           />
         </div>
 
-        <button type="button" className="inv-dtl-submit">
+        <button type="submit" className="inv-dtl-submit">
           Enregistrer le paiement
         </button>
       </form>
