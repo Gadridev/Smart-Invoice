@@ -233,3 +233,35 @@
 .sup-card--new:hover .sup-card__new-label {
   color: var(--text);
 }
+
+@media (max-width: 480px) {
+  .sup-page {
+    max-width: 100%;
+  }
+
+  .sup-grid {
+    gap: 1rem;
+  }
+
+  .sup-card {
+    padding: 1.1rem 1.15rem;
+    min-height: 0;
+  }
+
+  .sup-card__stats {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .sup-card__stat-label {
+    margin-bottom: 0.15rem;
+  }
+
+  .sup-card__name {
+    font-size: 1rem;
+  }
+
+  .sup-card--new {
+    min-height: 160px;
+  }
+}

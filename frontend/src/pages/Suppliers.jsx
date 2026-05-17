@@ -6,11 +6,13 @@ import { formatMAD } from "@/utils/currency.js";
 import SupplierCard from "@/components/suppliers/SupplierCard";
 import SupplierCardNew from "@/components/suppliers/SupplierCardNew";
 import Loading from "@/components/Loading";
+import NewSupplierModal from "@/models/SupplierModel";
 
 export default function Suppliers() {
   const [suppliers, setSuppliers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showSupplierModal, setShowSupplierModal] = useState(false);
 
   useEffect(() => {
     loadSuppliers();
@@ -54,6 +56,7 @@ export default function Suppliers() {
 
   if (loading) {
     return <Loading message="Chargement des fournisseurs…" />;
+    return <Loading message="Chargement des fournisseurs…" />;
   }
 
   if (error) {
@@ -70,8 +73,13 @@ export default function Suppliers() {
             colorIndex={index}
           />
         ))}
-        <SupplierCardNew />
+        <SupplierCardNew setShowSupplierModal={setShowSupplierModal}/>
       </div>
+      <NewSupplierModal
+        open={showSupplierModal}
+        onClose={() => setShowSupplierModal(false)}
+        onCreated={loadSuppliers}
+      />
     </div>
   );
 }

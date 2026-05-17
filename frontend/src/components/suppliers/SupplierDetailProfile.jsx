@@ -7,11 +7,7 @@ export function SupplierDetailProfile({ profile }) {
           <h2 className="sup-dtl-name">{profile.name}</h2>
           <p className="sup-dtl-ids">{profile.identifiers}</p>
           <div className="sup-dtl-tags">
-            {profile.tags.map((tag) => (
-              <span key={tag} className="sup-dtl-tag">
-                {tag}
-              </span>
-            ))}
+           
             <span className="sup-dtl-tag sup-dtl-tag--active">
               <span className="sup-dtl-tag__dot" aria-hidden />
               Fournisseur actif

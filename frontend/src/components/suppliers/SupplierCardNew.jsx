@@ -1,6 +1,6 @@
-export default function SupplierCardNew() {
+export default function SupplierCardNew({setShowSupplierModal}) {
   return (
-    <button type="button" className="sup-card sup-card--new">
+    <button type="button" className="sup-card sup-card--new" onClick={() => setShowSupplierModal(true)}>
       <span className="sup-card__plus" aria-hidden>
         +
       </span>

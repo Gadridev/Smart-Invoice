@@ -1,0 +1,244 @@
+.fsm-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  z-index: 50;
+  animation: fsm-fade-in 0.18s ease;
+}
+.fsm-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 51;
+  width: min(480px, 95vw);
+  background: #0f1117;
+  border: 1px solid #2a2d36;
+  border-radius: 16px;
+  overflow: hidden;
+  animation: fsm-slide-up 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fsm-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid #1e2130;
+}
+.fsm-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c8a96e;
+  margin-bottom: 4px;
+}
+.fsm-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f0ece4;
+  margin: 0;
+}
+.fsm-close {
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition:
+    color 0.15s,
+    background 0.15s;
+  line-height: 1;
+}
+.fsm-close:hover {
+  color: #f0ece4;
+  background: #1e2130;
+}
+.fsm-form {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.fsm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.fsm-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7a7f93;
+}
+.fsm-optional {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #4a4e60;
+}
+.fsm-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.fsm-input {
+  width: 100%;
+  background: #161a26;
+  border: 1px solid #2a2d3a;
+  border-radius: 10px;
+  padding: 11px 14px;
+  color: #d4d0c8;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+.fsm-input:focus {
+  border-color: #c8a96e;
+}
+.fsm-input::placeholder {
+  color: #3a3e50;
+}
+.fsm-error {
+  font-size: 13px;
+  color: #e07070;
+  background: rgba(224, 112, 112, 0.08);
+  border: 1px solid rgba(224, 112, 112, 0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 0;
+}
+.fsm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding-top: 4px;
+}
+.fsm-btn-cancel {
+  background: none;
+  border: 1px solid #2a2d3a;
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: #7a7f93;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+.fsm-btn-cancel:hover {
+  border-color: #4a4e60;
+  color: #d4d0c8;
+}
+.fsm-btn-submit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #c8a96e;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 22px;
+  color: #0a0c12;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
+}
+.fsm-btn-submit:hover:not(:disabled) {
+  background: #d4b87a;
+}
+.fsm-btn-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.fsm-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(10, 12, 18, 0.3);
+  border-top-color: #0a0c12;
+  border-radius: 50%;
+  animation: fsm-spin 0.6s linear infinite;
+  display: inline-block;
+}
+@keyframes fsm-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fsm-slide-up {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 20px));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+@keyframes fsm-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 560px) {
+  .fsm-panel {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: none;
+    width: 100%;
+    max-height: 92vh;
+    border-radius: 16px 16px 0 0;
+    animation: fsm-slide-up-mobile 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .fsm-header {
+    padding: 1.25rem 1.15rem 1rem;
+  }
+
+  .fsm-form {
+    padding: 1.15rem 1.15rem 1.5rem;
+    overflow-y: auto;
+    max-height: calc(92vh - 5rem);
+  }
+
+  .fsm-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .fsm-actions {
+    flex-direction: column-reverse;
+  }
+
+  .fsm-btn-cancel,
+  .fsm-btn-submit {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@keyframes fsm-slide-up-mobile {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -247,7 +247,13 @@
 .sup-dtl-bar__fill--gold {
   background: var(--gold);
 }
-
+.sup-dtl-badge--late{
+  background: var(--danger);
+ 
+}
+.sup-dtl-badge--unpaid{
+  background: rgb(0, 179, 255);
+}
 .sup-dtl-invoices-head {
   display: flex;
   align-items: center;
@@ -353,4 +359,73 @@
   background: rgba(74, 222, 128, 0.12);
   color: var(--success);
   border: 1px solid rgba(74, 222, 128, 0.22);
+}
+
+@media (max-width: 768px) {
+  .sup-dtl-profile {
+    flex-direction: column;
+    padding: 1.15rem 1.25rem;
+  }
+
+  .sup-dtl-profile__stats {
+    width: 100%;
+    justify-content: space-between;
+    text-align: left;
+    gap: 1.25rem;
+  }
+
+  .sup-dtl-name {
+    font-size: 1.25rem;
+  }
+
+  .sup-dtl-avatar {
+    width: 56px;
+    height: 56px;
+    font-size: 1.1rem;
+  }
+
+  .sup-dtl-card {
+    padding: 1rem 1.15rem;
+  }
+
+  .sup-dtl-kv__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .sup-dtl-kv dd {
+    text-align: left;
+  }
+
+  .sup-dtl-invoice {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .sup-dtl-invoice__amount {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .sup-dtl-profile__main {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .sup-dtl-tags {
+    justify-content: center;
+  }
+
+  .sup-dtl-profile__stats {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .sup-dtl-stat-block__value--gold {
+    font-size: 1.25rem;
+  }
 }
