@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext.jsx";
 
@@ -58,7 +59,6 @@ function todayFr() {
   });
 }
 
-
 function layoutMeta(pathname) {
   if (pathname.startsWith("/invoices/") && pathname !== "/invoices") {
     return {
@@ -84,7 +84,6 @@ function layoutMeta(pathname) {
   return { crumb: "Accueil", title: "Page" };
 }
 
-
 function userInitials(name) {
   if (!name?.trim()) return "?";
   return name
@@ -100,29 +99,65 @@ export function DashboardLayout() {
   const { pathname } = useLocation();
   const { user, logout } = useAuth();
   const { crumb, title } = layoutMeta(pathname);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  function closeMenu() {
+    setMenuOpen(false);
+  }
 
   return (
     <div className="dash-root">
-      <aside className="dash-sidebar" aria-label="Navigation">
-        <div className="dash-sidebar__brand">
-          <span className="dash-sidebar__logo">Facturo</span>
-          <span className="dash-sidebar__version">V2.4.1 • PRODUCTION</span>
+      <button
+        type="button"
+        className={`dash-backdrop${menuOpen ? " dash-backdrop--visible" : ""}`}
+        aria-label="Fermer le menu"
+        onClick={closeMenu}
+      />
+
+      <aside
+        className={`dash-sidebar${menuOpen ? " dash-sidebar--open" : ""}`}
+        aria-label="Navigation"
+      >
+        <div className="dash-sidebar__head">
+          <div className="dash-sidebar__brand">
+            <span className="dash-sidebar__logo">Facturo</span>
+            <span className="dash-sidebar__version">V2.4.1 • PRODUCTION</span>
+          </div>
+          <button
+            type="button"
+            className="dash-sidebar__close"
+            aria-label="Fermer le menu"
+            onClick={closeMenu}
+          >
+            ✕
+          </button>
         </div>
 
         <div className="dash-nav">
           <p className="dash-nav__label">Principal</p>
-          <NavLink to="/dashboard" className={navClass} end>
+          <NavLink to="/dashboard" className={navClass} end onClick={closeMenu}>
             <IconDashboard />
             Tableau de bord
           </NavLink>
 
           <p className="dash-nav__label">Gestion</p>
-          <NavLink to="/invoices" className={navClass}>
+          <NavLink to="/invoices" className={navClass} onClick={closeMenu}>
             <IconInvoice />
             Factures
             <span className="dash-nav__badge">3</span>
           </NavLink>
-          <NavLink to="/suppliers" className={navClass}>
+          <NavLink to="/suppliers" className={navClass} onClick={closeMenu}>
             <IconSuppliers />
             Fournisseurs
           </NavLink>
@@ -131,7 +166,10 @@ export function DashboardLayout() {
           <button
             type="button"
             className="dash-nav__link dash-nav__link--button"
-            onClick={logout}
+            onClick={() => {
+              closeMenu();
+              logout();
+            }}
           >
             <IconLogout />
             Déconnexion
@@ -153,9 +191,22 @@ export function DashboardLayout() {
 
       <div className="dash-main">
         <header className="dash-topbar">
-          <div>
-            <p className="dash-topbar__crumb">{crumb}</p>
-            <h1 className="dash-topbar__title">{title}</h1>
+          <div className="dash-topbar__left">
+            <button
+              type="button"
+              className="dash-menu-btn"
+              aria-label="Ouvrir le menu"
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen(true)}
+            >
+              <span className="dash-menu-btn__bar" />
+              <span className="dash-menu-btn__bar" />
+              <span className="dash-menu-btn__bar" />
+            </button>
+            <div>
+              <p className="dash-topbar__crumb">{crumb}</p>
+              <h1 className="dash-topbar__title">{title}</h1>
+            </div>
           </div>
           <div className="dash-topbar__side">
           
