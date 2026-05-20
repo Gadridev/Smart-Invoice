@@ -8,6 +8,8 @@ import Suppliers from "@/pages/Suppliers.jsx";
 import SupplierDetail from "@/pages/SupplierDetail.jsx";
 import NotFound from "@/pages/NotFound.jsx";
 import LoginSignup from "@/pages/LoginSignup";
+import ClientList from "@/pages/Clients"
+import Clients from "@/pages/Clients";
 
 export function AppRoutes() {
   return (
@@ -18,6 +20,8 @@ export function AppRoutes() {
         <Route element={<DashboardLayout />}>
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/Client" element={<Clients />} />
+
           <Route path="/invoices" element={<Invoices />} />
           <Route path="/invoices/:id" element={<InvoiceDetail />} />
           <Route path="/suppliers" element={<Suppliers />} />
